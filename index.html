@@ -1,185 +1,298 @@
-.patenschaft-urkunde {
-  display: flex;
-  justify-content: center;
-  padding: 2rem 1rem;
-  background: #f6eedc; /* leichtes Beige, wie auf der Karte */
-}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Tiny Farmers – Tierpatenschaftsurkunde</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-.urkunde-card {
-  max-width: 900px;
-  width: 100%;
-  background: #f6eedc;
-  border-radius: 12px;
-  padding: 2.5rem 2rem;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-  font-family: "Georgia", "Times New Roman", serif;
-  color: #333;
-}
+  <style>
+    /* Grundlayout */
+    body {
+      margin: 0;
+      background: #f6eedc;
+      font-family: "Georgia", "Times New Roman", serif;
+      color: #333;
+    }
 
-/* Header */
+    .patenschaft-urkunde {
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      background: #f6eedc; /* leichtes Beige, wie auf der Karte */
+    }
 
-.urkunde-header {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  margin-bottom: 2rem;
-  text-align: center;
-}
+    .urkunde-card {
+      max-width: 900px;
+      width: 100%;
+      background: #f6eedc;
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      font-family: "Georgia", "Times New Roman", serif;
+      color: #333;
+    }
 
-.urkunde-title h1 {
-  margin: 0;
-  font-size: 2.2rem;
-  letter-spacing: 0.1em;
-}
+    /* Header */
+    .urkunde-header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
 
-.urkunde-title h2 {
-  margin: 0.3rem 0 0;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
+    .urkunde-title h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      letter-spacing: 0.1em;
+    }
 
-.urkunde-animals-top {
-  display: flex;
-  justify-content: center;
-}
+    .urkunde-title h2 {
+      margin: 0.3rem 0 0;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
 
-.tierbild {
-  max-height: 80px;
-  object-fit: contain;
-}
+    .urkunde-animals-top {
+      display: flex;
+      justify-content: center;
+    }
 
-.tierbild.klein {
-  max-height: 90px;
-}
+    .tier-emoji {
+      font-size: 3rem;
+      line-height: 1;
+    }
 
-/* Body: Formular + Fotospalte */
+    /* Body: Formular + Fotospalte */
+    .urkunde-body {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
 
-.urkunde-body {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-}
+    .urkunde-form label {
+      display: block;
+      margin-bottom: 0.7rem;
+      font-size: 0.95rem;
+    }
 
-.urkunde-form label {
-  display: block;
-  margin-bottom: 0.7rem;
-  font-size: 0.95rem;
-}
+    .urkunde-form input[type="text"],
+    .urkunde-form input[type="date"],
+    .urkunde-form textarea {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #8ea08c;
+      background: transparent;
+      padding: 0.15rem 0;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
 
-.urkunde-form input[type="text"],
-.urkunde-form input[type="date"],
-.urkunde-form textarea {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #8ea08c;
-  background: transparent;
-  padding: 0.15rem 0;
-  font-size: 0.95rem;
-  font-family: inherit;
-}
+    .urkunde-form textarea {
+      border: 1px solid #8ea08c;
+      border-radius: 4px;
+      padding: 0.3rem 0.4rem;
+    }
 
-.urkunde-form textarea {
-  border: 1px solid #8ea08c;
-  border-radius: 4px;
-  padding: 0.3rem 0.4rem;
-}
+    .urkunde-form input:focus,
+    .urkunde-form textarea:focus {
+      outline: none;
+      border-color: #5e7260;
+    }
 
-.urkunde-form input:focus,
-.urkunde-form textarea:focus {
-  outline: none;
-  border-color: #5e7260;
-}
+    .dauer {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
 
-.dauer {
-  margin-top: 1rem;
-  font-size: 0.95rem;
-}
+    .ort-datum {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+    }
 
-.ort-datum {
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
-}
+    .ort-datum input[type="date"] {
+      border: none;
+      border-bottom: 1px solid #8ea08c;
+      background: transparent;
+      font-family: inherit;
+    }
 
-.ort-datum input[type="date"] {
-  border: none;
-  border-bottom: 1px solid #8ea08c;
-  background: transparent;
-  font-family: inherit;
-}
+    /* Fotoboxen */
+    .urkunde-fotos {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
 
-/* Fotoboxen */
+    .foto-box {
+      border: 2px solid #d5dacb;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+    }
 
-.urkunde-fotos {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
+    .foto-box input[type="file"] {
+      font-size: 0.8rem;
+    }
 
-.foto-box {
-  border: 2px solid #d5dacb;
-  border-radius: 8px;
-  padding: 1rem;
-  text-align: center;
-  min-height: 150px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-}
+    /* Footer */
+    .urkunde-footer {
+      margin-top: 2.5rem;
+    }
 
-.foto-box input[type="file"] {
-  font-size: 0.8rem;
-}
+    .urkunde-animals-bottom {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
+    }
 
-/* Footer */
+    .urkunde-signatur {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 0.95rem;
+    }
 
-.urkunde-footer {
-  margin-top: 2.5rem;
-}
+    .signatur-linie {
+      flex: 1;
+      margin-right: 2rem;
+    }
 
-.urkunde-animals-bottom {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
+    .signatur-name {
+      text-align: right;
+    }
 
-.urkunde-signatur {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  font-size: 0.95rem;
-}
+    .signatur-name span {
+      font-size: 0.85rem;
+    }
 
-.signatur-linie {
-  flex: 1;
-  margin-right: 2rem;
-}
+    /* Responsive */
+    @media (max-width: 768px) {
+      .urkunde-body {
+        grid-template-columns: 1fr;
+      }
 
-.signatur-name {
-  text-align: right;
-}
+      .urkunde-signatur {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
 
-.signatur-name span {
-  font-size: 0.85rem;
-}
+      .signatur-linie {
+        margin-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
 
-/* Responsive */
+<section class="patenschaft-urkunde">
+  <div class="urkunde-card">
+    <header class="urkunde-header">
+      <div class="urkunde-animals-top">
+        <span class="tier-emoji">🐔</span>
+      </div>
+      <div class="urkunde-title">
+        <h1>TINY FARMERS</h1>
+        <h2>Tierpatenschaftsurkunde</h2>
+      </div>
+      <div class="urkunde-animals-top">
+        <span class="tier-emoji">🐰</span>
+      </div>
+    </header>
 
-@media (max-width: 768px) {
-  .urkunde-body {
-    grid-template-columns: 1fr;
-  }
+    <div class="urkunde-body">
+      <form class="urkunde-form">
+        <label>
+          Name:
+          <input type="text" name="name">
+        </label>
 
-  .urkunde-signatur {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
+        <label>
+          Pate / Patin:
+          <input type="text" name="pate">
+        </label>
 
-  .signatur-linie {
-    margin-right: 0;
-  }
-}
+        <label>
+          Beginn der Patenschaft:
+          <input type="date" name="beginn">
+        </label>
+
+        <label>
+          Tierart:
+          <input type="text" name="tierart">
+        </label>
+
+        <label>
+          Name des Tieres:
+          <input type="text" name="tiername">
+        </label>
+
+        <label>
+          Geburtsdatum des Tieres:
+          <input type="date" name="geburtsdatum">
+        </label>
+
+        <label>
+          Standort / Gehege:
+          <input type="text" name="standort">
+        </label>
+
+        <label>
+          Besonderheiten des Tieres:
+          <textarea name="besonderheiten" rows="2"></textarea>
+        </label>
+
+        <p class="dauer">
+          Dauer der Patenschaft: <strong>1 Kalenderjahr</strong>
+        </p>
+
+        <p class="ort-datum">
+          Köln, den <input type="date" name="datum-koeln">
+        </p>
+      </form>
+
+      <div class="urkunde-fotos">
+        <div class="foto-box">
+          <p>Foto Pate / Patin</p>
+          <input type="file" name="foto-pate" accept="image/*">
+        </div>
+        <div class="foto-box">
+          <p>Foto des Tieres</p>
+          <input type="file" name="foto-tier" accept="image/*">
+        </div>
+      </div>
+    </div>
+
+    <footer class="urkunde-footer">
+      <div class="urkunde-animals-bottom">
+        <span>🦢</span>
+        <span>🐇</span>
+        <span>🐶</span>
+        <span>🦆</span>
+      </div>
+
+      <div class="urkunde-signatur">
+        <div class="signatur-linie">
+          Köln, den ______________________
+        </div>
+        <div class="signatur-name">
+          Jenny Recour<br>
+          <span>Gründerin Tiny Farmers</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+</body>
+</html>
