@@ -1,494 +1,185 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <title>Tiny Farmer Village – Mitgliedsausweis</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    :root {
-      --green: #6cbf4b;
-      --darkgreen: #3f7f2c;
-      --brown: #8b5a2b;
-      --light: #fdf7e7;
-      --accent: #ffcc4d;
-      --red: #e15b5b;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #b7e4c7 0%, #f7f3e9 60%, #fdfaf2 100%);
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-    }
-
-    .page {
-      width: 100%;
-      max-width: 480px;
-      padding: 16px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 18px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
-      padding: 18px 18px 22px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      /* kleine „Wiese“ unten */
-      content: "";
-      position: absolute;
-      left: -10%;
-      right: -10%;
-      bottom: -35px;
-      height: 90px;
-      background: radial-gradient(circle at 50% 0, #8ce36a 0, #6cbf4b 45%, #55973a 100%);
-      z-index: -1;
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .icon-circle {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 20%, #fff 0, #ffe39c 45%, #f5b43b 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      border: 2px solid rgba(0, 0, 0, 0.05);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 1.4rem;
-      color: #2c3c2c;
-      line-height: 1.2;
-    }
-
-    .subtitle {
-      margin: 2px 0 0;
-      font-size: 0.85rem;
-      color: #546454;
-    }
-
-    .barn-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 8px 0 14px;
-      font-size: 1.2rem;
-    }
-
-    .barn-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #fff7d1;
-      border-radius: 999px;
-      padding: 4px 10px;
-      font-size: 0.85rem;
-      color: #6b4b1f;
-      border: 1px solid #f4d37c;
-    }
-
-    .section-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin: 12px 0 6px;
-      color: #324232;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .section-title span.emoji {
-      font-size: 1.1rem;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 4px 10px;
-      font-size: 0.9rem;
-      margin-bottom: 6px;
-    }
-
-    .label {
-      color: #6a7a6a;
-      font-weight: 500;
-    }
-
-    .value {
-      color: #283628;
-      text-align: right;
-      font-weight: 600;
-    }
-
-    .value.small {
-      font-weight: 500;
-      font-size: 0.85rem;
-    }
-
-    .stars {
-      display: flex;
-      justify-content: flex-end;
-      gap: 2px;
-      font-size: 1rem;
-    }
-
-    .chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 4px 0 8px;
-      font-size: 0.8rem;
-    }
-
-    .chip {
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: #e6f3ff;
-      color: #234567;
-      border: 1px solid #c4dffa;
-    }
-
-    .hint {
-      font-size: 0.78rem;
-      color: #6c7c6c;
-      margin-top: 4px;
-    }
-
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, #d9e2d9, transparent);
-      margin: 10px 0;
-    }
-
-    .staff-box {
-      background: #f4f9f4;
-      border-radius: 12px;
-      padding: 10px 10px 12px;
-      border: 1px dashed #c2d4c2;
-      margin-top: 6px;
-    }
-
-    .staff-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #324232;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    .staff-input-row {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    .staff-input-row input {
-      flex: 1;
-      padding: 6px 8px;
-      border-radius: 999px;
-      border: 1px solid #c7d4c7;
-      font-size: 0.85rem;
-      outline: none;
-    }
-
-    .staff-input-row input:focus {
-      border-color: var(--green);
-      box-shadow: 0 0 0 2px rgba(108, 191, 75, 0.24);
-    }
-
-    .btn {
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.82rem;
-      padding: 6px 10px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: var(--green);
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: var(--darkgreen);
-    }
-
-    .btn-ghost {
-      background: white;
-      color: #425242;
-      border: 1px solid #c7d4c7;
-    }
-
-    .btn-ghost:hover {
-      background: #edf4ed;
-    }
-
-    .btn-danger {
-      background: var(--red);
-      color: white;
-    }
-
-    .btn-danger:hover {
-      filter: brightness(0.95);
-    }
-
-    .staff-actions {
-      display: none;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .staff-actions.visible {
-      display: flex;
-    }
-
-    .staff-status {
-      font-size: 0.78rem;
-      margin-top: 4px;
-      color: #5a6a5a;
-    }
-
-    .staff-status.error {
-      color: #b73a3a;
-    }
-
-    .footer-note {
-      text-align: center;
-      font-size: 0.75rem;
-      color: #6e7e6e;
-      margin-top: 10px;
-    }
-
-    @media (max-width: 400px) {
-      .card {
-        padding: 14px 12px 18px;
-      }
-
-      .info-grid {
-        font-size: 0.85rem;
-      }
-
-      h1 {
-        font-size: 1.2rem;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="page">
-    <div class="card">
-      <div class="header">
-        <div class="icon-circle">🐔</div>
-        <div>
-          <h1>Tiny Farmer Village</h1>
-          <p class="subtitle">Mitgliedsausweis &amp; Paten-Tier-Übersicht</p>
-        </div>
-      </div>
-
-      <div class="barn-row">
-        <div class="barn-tag">
-          🏡 <span>Stall &amp; Scheunenfreunde</span>
-        </div>
-        <span style="font-size:0.8rem; color:#6b5a3a;">ID: <strong id="kid-id">TFV-0001</strong></span>
-      </div>
-
-      <!-- KIND-/ELTERNBEREICH (öffentlich sichtbar) -->
-      <div class="section-title">
-        <span class="emoji">👦</span> <span>Dein Tiny-Farmer-Ausweis</span>
-      </div>
-
-      <div class="info-grid">
-        <div class="label">Name</div>
-        <div class="value" id="kid-name">Beispielkind</div>
-
-        <div class="label">Paten-Tier</div>
-        <div class="value" id="kid-animal">Lilli, das Zwergen-Schaf</div>
-
-        <div class="label">Letzter Besuch</div>
-        <div class="value small" id="last-visit">–</div>
-
-        <div class="label">Besuche gesamt</div>
-        <div class="value" id="visit-count">0</div>
-
-        <div class="label">Freie Eintritte übrig</div>
-        <div class="value" id="free-entries">5</div>
-
-        <div class="label">Sammel-Sterne</div>
-        <div class="value">
-          <div class="stars" id="star-display">
-            ⭐️ ⭐️ ☆ ☆ ☆
-          </div>
-        </div>
-      </div>
-
-      <div class="chip-row">
-        <div class="chip">🎁 Bonus ab 10 Besuchen</div>
-        <div class="chip">⭐ Extra-Stern für Fütter-Tage</div>
-        <div class="chip">🐑 Paten-Tier immer gut behandeln!</div>
-      </div>
-
-      <p class="hint">
-        Diese Seite ist für Kinder &amp; Eltern sichtbar. Nur Mitarbeiter:innen dürfen die Besuche und Sterne verändern.
-      </p>
-
-      <div class="divider"></div>
-
-      <!-- MITARBEITERBEREICH (mit Passwort) -->
-      <div class="section-title">
-        <span class="emoji">🧑‍🌾</span> <span>Mitarbeiter-Bereich</span>
-      </div>
-
-      <div class="staff-box">
-        <div class="staff-label">
-          🔒 Nur für Tiny-Farmer-Team
-        </div>
-        <div class="staff-input-row">
-          <input
-            type="password"
-            id="staff-password"
-            placeholder="Mitarbeiter-Passwort eingeben"
-            autocomplete="off"
-          />
-          <button class="btn btn-primary" id="btn-login">Login</button>
-        </div>
-        <div class="staff-status" id="staff-status">
-          Nach erfolgreichem Login können Besuche, Sterne und freie Eintritte angepasst werden.
-        </div>
-
-        <div class="staff-actions" id="staff-actions">
-          <button class="btn btn-ghost" id="btn-visit">
-            ✅ Besuch heute buchen
-          </button>
-          <button class="btn btn-ghost" id="btn-star">
-            ⭐ Stern hinzufügen
-          </button>
-          <button class="btn btn-danger" id="btn-free">
-            🎫 Freien Eintritt verbrauchen
-          </button>
-        </div>
-      </div>
-
-      <p class="footer-note">
-        Hinweis: Änderungen werden in dieser Demo nur im Browser gespeichert und gehen nach einem Neuladen verloren.
-      </p>
-    </div>
-  </div>
-
-  <script>
-    // ===== KONFIGURATION =====
-    // Hier dein Mitarbeiter-Passwort:
-    const STAFF_PASSWORD = "TinyFarm2025!";
-
-    // Startdaten für das Kind (Demo)
-    let visitCount = 0;
-    let freeEntries = 5;
-    let starCount = 2; // 0–5
-    let lastVisit = null;
-
-    function updateView() {
-      document.getElementById("visit-count").textContent = visitCount;
-      document.getElementById("free-entries").textContent = freeEntries;
-
-      const lastVisitEl = document.getElementById("last-visit");
-      lastVisitEl.textContent = lastVisit ? lastVisit : "–";
-
-      const starDisplay = document.getElementById("star-display");
-      const maxStars = 5;
-      let starsHtml = "";
-      for (let i = 0; i < maxStars; i++) {
-        if (i < starCount) {
-          starsHtml += "⭐️ ";
-        } else {
-          starsHtml += "☆ ";
-        }
-      }
-      starDisplay.textContent = starsHtml.trim();
-    }
-
-    function setStatus(message, isError) {
-      const statusEl = document.getElementById("staff-status");
-      statusEl.textContent = message;
-      statusEl.classList.toggle("error", !!isError);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      updateView();
-
-      const inputPw = document.getElementById("staff-password");
-      const btnLogin = document.getElementById("btn-login");
-      const staffActions = document.getElementById("staff-actions");
-
-      btnLogin.addEventListener("click", () => {
-        const entered = inputPw.value.trim();
-        if (!entered) {
-          setStatus("Bitte Passwort eingeben.", true);
-          return;
-        }
-        if (entered === STAFF_PASSWORD) {
-          staffActions.classList.add("visible");
-          setStatus("Login erfolgreich. Aktionen freigeschaltet.", false);
-          inputPw.value = "";
-        } else {
-          setStatus("Falsches Passwort. Zugriff verweigert.", true);
-        }
-      });
-
-      document.getElementById("btn-visit").addEventListener("click", () => {
-        visitCount += 1;
-        const today = new Date();
-        lastVisit = today.toLocaleDateString("de-DE");
-        updateView();
-        setStatus("Besuch gebucht. Letzter Besuch auf heute gesetzt.", false);
-      });
-
-      document.getElementById("btn-star").addEventListener("click", () => {
-        if (starCount < 5) {
-          starCount += 1;
-          updateView();
-          setStatus("Ein Stern wurde hinzugefügt.", false);
-        } else {
-          setStatus("Maximal 5 Sterne möglich.", true);
-        }
-      });
-
-      document.getElementById("btn-free").addEventListener("click", () => {
-        if (freeEntries > 0) {
-          freeEntries -= 1;
-          updateView();
-          setStatus("Ein freier Eintritt wurde verbraucht.", false);
-        } else {
-          setStatus("Keine freien Eintritte mehr verfügbar.", true);
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+.patenschaft-urkunde {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: #f6eedc; /* leichtes Beige, wie auf der Karte */
+}
+
+.urkunde-card {
+  max-width: 900px;
+  width: 100%;
+  background: #f6eedc;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  font-family: "Georgia", "Times New Roman", serif;
+  color: #333;
+}
+
+/* Header */
+
+.urkunde-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.urkunde-title h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  letter-spacing: 0.1em;
+}
+
+.urkunde-title h2 {
+  margin: 0.3rem 0 0;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.urkunde-animals-top {
+  display: flex;
+  justify-content: center;
+}
+
+.tierbild {
+  max-height: 80px;
+  object-fit: contain;
+}
+
+.tierbild.klein {
+  max-height: 90px;
+}
+
+/* Body: Formular + Fotospalte */
+
+.urkunde-body {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.urkunde-form label {
+  display: block;
+  margin-bottom: 0.7rem;
+  font-size: 0.95rem;
+}
+
+.urkunde-form input[type="text"],
+.urkunde-form input[type="date"],
+.urkunde-form textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #8ea08c;
+  background: transparent;
+  padding: 0.15rem 0;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.urkunde-form textarea {
+  border: 1px solid #8ea08c;
+  border-radius: 4px;
+  padding: 0.3rem 0.4rem;
+}
+
+.urkunde-form input:focus,
+.urkunde-form textarea:focus {
+  outline: none;
+  border-color: #5e7260;
+}
+
+.dauer {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.ort-datum {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.ort-datum input[type="date"] {
+  border: none;
+  border-bottom: 1px solid #8ea08c;
+  background: transparent;
+  font-family: inherit;
+}
+
+/* Fotoboxen */
+
+.urkunde-fotos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.foto-box {
+  border: 2px solid #d5dacb;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.foto-box input[type="file"] {
+  font-size: 0.8rem;
+}
+
+/* Footer */
+
+.urkunde-footer {
+  margin-top: 2.5rem;
+}
+
+.urkunde-animals-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.urkunde-signatur {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 0.95rem;
+}
+
+.signatur-linie {
+  flex: 1;
+  margin-right: 2rem;
+}
+
+.signatur-name {
+  text-align: right;
+}
+
+.signatur-name span {
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .urkunde-body {
+    grid-template-columns: 1fr;
+  }
+
+  .urkunde-signatur {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .signatur-linie {
+    margin-right: 0;
+  }
+}
