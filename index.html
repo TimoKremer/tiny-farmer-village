@@ -14,11 +14,23 @@
       color: #333;
     }
 
+    main {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+    }
+
+    /* URKUNDE */
+
     .patenschaft-urkunde {
       display: flex;
       justify-content: center;
-      padding: 2rem 1rem;
-      background: #f6eedc; /* leichtes Beige, wie auf der Karte */
+      padding: 2rem 1rem 3rem;
+      background: #f6eedc;
     }
 
     .urkunde-card {
@@ -42,13 +54,12 @@
     }
 
     .urkunde-title h1 {
-      margin: 0;
       font-size: 2.2rem;
       letter-spacing: 0.1em;
     }
 
     .urkunde-title h2 {
-      margin: 0.3rem 0 0;
+      margin-top: 0.3rem;
       font-size: 1.2rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -59,12 +70,17 @@
       justify-content: center;
     }
 
-    .tier-emoji {
-      font-size: 3rem;
-      line-height: 1;
+    .tierbild {
+      max-height: 80px;
+      object-fit: contain;
+    }
+
+    .tierbild.klein {
+      max-height: 90px;
     }
 
     /* Body: Formular + Fotospalte */
+
     .urkunde-body {
       display: grid;
       grid-template-columns: 2fr 1fr;
@@ -106,19 +122,8 @@
       font-size: 0.95rem;
     }
 
-    .ort-datum {
-      margin-top: 0.5rem;
-      font-size: 0.95rem;
-    }
-
-    .ort-datum input[type="date"] {
-      border: none;
-      border-bottom: 1px solid #8ea08c;
-      background: transparent;
-      font-family: inherit;
-    }
-
     /* Fotoboxen */
+
     .urkunde-fotos {
       display: flex;
       flex-direction: column;
@@ -142,7 +147,8 @@
       font-size: 0.8rem;
     }
 
-    /* Footer */
+    /* Footer der Urkunde */
+
     .urkunde-footer {
       margin-top: 2.5rem;
     }
@@ -152,7 +158,6 @@
       justify-content: center;
       gap: 1.5rem;
       margin-bottom: 1.5rem;
-      font-size: 2.5rem;
     }
 
     .urkunde-signatur {
@@ -160,11 +165,6 @@
       justify-content: space-between;
       align-items: flex-end;
       font-size: 0.95rem;
-    }
-
-    .signatur-linie {
-      flex: 1;
-      margin-right: 2rem;
     }
 
     .signatur-name {
@@ -175,7 +175,71 @@
       font-size: 0.85rem;
     }
 
+    /* MITARBEITERBEREICH */
+
+    .team-section {
+      background: #f1e7d1;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      padding: 3rem 1rem 4rem;
+    }
+
+    .team-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .team-section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .team-card {
+      background: #f6eedc;
+      border-radius: 10px;
+      padding: 1.2rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #e3d8c2;
+      margin: 0 auto 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .team-name {
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+
+    .team-role {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.3rem;
+    }
+
+    .team-note {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
     /* Responsive */
+
     @media (max-width: 768px) {
       .urkunde-body {
         grid-template-columns: 1fr;
@@ -186,113 +250,149 @@
         align-items: flex-start;
         gap: 0.5rem;
       }
-
-      .signatur-linie {
-        margin-right: 0;
-      }
     }
   </style>
 </head>
 <body>
+<main>
 
-<section class="patenschaft-urkunde">
-  <div class="urkunde-card">
-    <header class="urkunde-header">
-      <div class="urkunde-animals-top">
-        <span class="tier-emoji">🐔</span>
-      </div>
-      <div class="urkunde-title">
-        <h1>TINY FARMERS</h1>
-        <h2>Tierpatenschaftsurkunde</h2>
-      </div>
-      <div class="urkunde-animals-top">
-        <span class="tier-emoji">🐰</span>
-      </div>
-    </header>
+  <!-- URKUNDE -->
+  <section class="patenschaft-urkunde">
+    <div class="urkunde-card">
 
-    <div class="urkunde-body">
-      <form class="urkunde-form">
-        <label>
-          Name:
-          <input type="text" name="name">
-        </label>
-
-        <label>
-          Pate / Patin:
-          <input type="text" name="pate">
-        </label>
-
-        <label>
-          Beginn der Patenschaft:
-          <input type="date" name="beginn">
-        </label>
-
-        <label>
-          Tierart:
-          <input type="text" name="tierart">
-        </label>
-
-        <label>
-          Name des Tieres:
-          <input type="text" name="tiername">
-        </label>
-
-        <label>
-          Geburtsdatum des Tieres:
-          <input type="date" name="geburtsdatum">
-        </label>
-
-        <label>
-          Standort / Gehege:
-          <input type="text" name="standort">
-        </label>
-
-        <label>
-          Besonderheiten des Tieres:
-          <textarea name="besonderheiten" rows="2"></textarea>
-        </label>
-
-        <p class="dauer">
-          Dauer der Patenschaft: <strong>1 Kalenderjahr</strong>
-        </p>
-
-        <p class="ort-datum">
-          Köln, den <input type="date" name="datum-koeln">
-        </p>
-      </form>
-
-      <div class="urkunde-fotos">
-        <div class="foto-box">
-          <p>Foto Pate / Patin</p>
-          <input type="file" name="foto-pate" accept="image/*">
+      <header class="urkunde-header">
+        <div class="urkunde-animals-top">
+          <!-- OBEN LINKS: HUHN – bitte Datei img/huhn.png anlegen -->
+          <img src="img/huhn.png" alt="Huhn" class="tierbild klein">
         </div>
-        <div class="foto-box">
-          <p>Foto des Tieres</p>
-          <input type="file" name="foto-tier" accept="image/*">
+        <div class="urkunde-title">
+          <h1>TINY FARMERS</h1>
+          <h2>Tierpatenschaftsurkunde</h2>
         </div>
+        <div class="urkunde-animals-top">
+          <!-- OBEN RECHTS: KANINCHEN – bitte Datei img/kaninchen_oben.png anlegen -->
+          <img src="img/kaninchen_oben.png" alt="Kaninchen" class="tierbild klein">
+        </div>
+      </header>
+
+      <div class="urkunde-body">
+        <form class="urkunde-form">
+          <label>
+            Name:
+            <input type="text" name="name">
+          </label>
+
+          <label>
+            Pate / Patin:
+            <input type="text" name="pate">
+          </label>
+
+          <label>
+            Beginn der Patenschaft:
+            <input type="date" name="beginn">
+          </label>
+
+          <label>
+            Tierart:
+            <input type="text" name="tierart">
+          </label>
+
+          <label>
+            Name des Tieres:
+            <input type="text" name="tiername">
+          </label>
+
+          <label>
+            Geburtsdatum des Tieres:
+            <input type="date" name="geburtsdatum">
+          </label>
+
+          <label>
+            Standort / Gehege:
+            <input type="text" name="standort">
+          </label>
+
+          <label>
+            Besonderheiten des Tieres:
+            <textarea name="besonderheiten" rows="2"></textarea>
+          </label>
+
+          <p class="dauer">
+            Dauer der Patenschaft: <strong>1 Kalenderjahr</strong>
+          </p>
+        </form>
+
+        <div class="urkunde-fotos">
+          <div class="foto-box">
+            <p>Foto Pate / Patin</p>
+            <input type="file" name="foto-pate" accept="image/*">
+          </div>
+          <div class="foto-box">
+            <p>Foto des Tieres</p>
+            <input type="file" name="foto-tier" accept="image/*">
+          </div>
+        </div>
+      </div>
+
+      <footer class="urkunde-footer">
+        <div class="urkunde-animals-bottom">
+          <!-- UNTEN: weitere Tiere – bitte Dateien in img/ ablegen -->
+          <img src="img/gans.png" alt="Gans" class="tierbild">
+          <img src="img/kaninchen_unten.png" alt="Kaninchen" class="tierbild">
+          <img src="img/hund.png" alt="Hund" class="tierbild">
+          <img src="img/ente.png" alt="Ente" class="tierbild">
+        </div>
+
+        <div class="urkunde-signatur">
+          <div></div>
+          <div class="signatur-name">
+            Jenny Recour<br>
+            <span>Gründerin Tiny Farmers</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </section>
+
+  <!-- MITARBEITERBEREICH / TEAM -->
+  <section class="team-section">
+    <div class="team-inner">
+      <h2>Unser Tiny Farmers Team</h2>
+      <div class="team-grid">
+
+        <article class="team-card">
+          <div class="team-avatar">👩‍🌾</div>
+          <div class="team-name">Jenny Recour</div>
+          <div class="team-role">Gründerin Tiny Farmers</div>
+          <div class="team-note">Organisation, Betreuung der Tiere & Patenschaften.</div>
+        </article>
+
+        <article class="team-card">
+          <div class="team-avatar">🧑‍🌾</div>
+          <div class="team-name">Mitarbeiter*in 2</div>
+          <div class="team-role">Tierpflege</div>
+          <div class="team-note">Füttern, Pflege & Wohlbefinden der Tiere.</div>
+        </article>
+
+        <article class="team-card">
+          <div class="team-avatar">🧒</div>
+          <div class="team-name">Mitarbeiter*in 3</div>
+          <div class="team-role">Pädagogik</div>
+          <div class="team-note">Begleitung der Kindergruppen auf dem Hof.</div>
+        </article>
+
+        <article class="team-card">
+          <div class="team-avatar">🐄</div>
+          <div class="team-name">Tier-Team</div>
+          <div class="team-role">Unsere Tiere</div>
+          <div class="team-note">Die eigentlichen Stars des Tiny Farmer Village.</div>
+        </article>
+
       </div>
     </div>
+  </section>
 
-    <footer class="urkunde-footer">
-      <div class="urkunde-animals-bottom">
-        <span>🦢</span>
-        <span>🐇</span>
-        <span>🐶</span>
-        <span>🦆</span>
-      </div>
-
-      <div class="urkunde-signatur">
-        <div class="signatur-linie">
-          Köln, den ______________________
-        </div>
-        <div class="signatur-name">
-          Jenny Recour<br>
-          <span>Gründerin Tiny Farmers</span>
-        </div>
-      </div>
-    </footer>
-  </div>
-</section>
-
+</main>
 </body>
 </html>
