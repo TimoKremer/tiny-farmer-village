@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    /* Grundlayout */
+    /* Grundlayout / Design-Variablen */
     :root {
       --beige-bg: #f6eedc;
       --beige-darker: #e9ddc5;
@@ -25,6 +25,7 @@
       background: var(--beige-bg);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #333;
+      font-size: 16px;
     }
 
     main {
@@ -78,6 +79,7 @@
       margin-bottom: 2rem;
       position: relative;
       z-index: 1;
+      column-gap: 1rem;
     }
 
     .urkunde-animals-top {
@@ -256,7 +258,7 @@
       max-height: 80px;
     }
 
-    /* Signatur-Badge für Jenny, ohne „Köln, den …“ */
+    /* Signatur-Badge für Jenny */
 
     .signatur-badge {
       display: inline-flex;
@@ -295,44 +297,63 @@
       color: #6a7468;
     }
 
+    /* -----------------------------
+       TIERGALERIE
+       ----------------------------- */
 
+    .tier-galerie {
+      padding: 2.5rem 1rem 3rem;
+      background: var(--beige-bg);
+    }
 
-    
-<!-- TIERGALERIE BEREICH -->
-<section class="tier-galerie">
-  <h2>Unsere Tiny-Farmers-Tiere</h2>
+    .tier-galerie h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+      margin-bottom: 1.8rem;
+    }
 
-  <div class="tier-grid">
+    .tier-grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1.6rem;
+      align-items: flex-start;
+    }
 
-    <figure class="tier-card">
-      <img src="img/ente.png" alt="Ente im Aquarellstil">
-      <figcaption>Ente</figcaption>
-    </figure>
+    .tier-card {
+      background: transparent;   /* kein weißer Kasten */
+      border: none;
+      box-shadow: none;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
 
-    <figure class="tier-card">
-      <img src="img/entenbaby.png" alt="Entenküken im Aquarellstil">
-      <figcaption>Entenküken</figcaption>
-    </figure>
+    .tier-card img {
+      max-width: 160px;
+      height: auto;
+      display: block;
+      /* freischwebender Schatten */
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.22));
+    }
 
-    <figure class="tier-card">
-      <img src="img/kaninchen.png" alt="Kaninchen im Aquarellstil">
-      <figcaption>Kaninchen</figcaption>
-    </figure>
+    /* Hero-Ente in der Galerie: größer + leicht angehoben */
+    .ente-hero {
+      max-width: 200px;
+      transform: translateY(-6px);
+    }
 
-    <figure class="tier-card">
-      <img src="img/salamander.png" alt="Salamander im Aquarellstil">
-      <figcaption>Salamander</figcaption>
-    </figure>
+    .tier-card figcaption {
+      font-size: 0.9rem;
+      color: #4a5348;
+    }
 
-  </div>
-</section>
-<!-- ENDE TIERGALERIE -->
-
-
-
-
-
-    
     /* -----------------------------
        TEAM / MITARBEITERBEREICH
        ----------------------------- */
@@ -400,40 +421,137 @@
       color: #666;
     }
 
-    /* Responsive */
+    /* -----------------------------
+       RESPONSIVE ANPASSUNGEN
+       ----------------------------- */
 
+    /* Tablet-Bereich: Header vereinfachen, Schrift etwas kleiner */
     @media (max-width: 820px) {
+      body {
+        font-size: 15px;
+      }
+
+      main {
+        gap: 2.2rem;
+      }
+
+      .urkunde-card {
+        padding: 2rem 1.5rem 1.7rem;
+      }
+
+      .urkunde-header {
+        grid-template-columns: 1fr;
+        row-gap: 0.8rem;
+        text-align: center;
+      }
+
+      .urkunde-animals-top {
+        justify-content: center;
+      }
+
+      .urkunde-title h1 {
+        font-size: 1.8rem;
+        letter-spacing: 0.16em;
+      }
+
+      .urkunde-title h2 {
+        font-size: 1rem;
+      }
+
       .urkunde-body {
         grid-template-columns: 1fr;
       }
 
       .signatur-badge {
         position: static;
-        margin-top: 0.3rem;
+        margin-top: 0.8rem;
       }
 
       .urkunde-footer {
         padding-bottom: 0.5rem;
       }
+
+      .tier-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      }
     }
 
+    /* Handy-Bereich: alles kompakter + 1-spaltige Grids */
     @media (max-width: 540px) {
+      body {
+        font-size: 14px;
+      }
+
+      .patenschaft-wrapper {
+        padding: 1.8rem 0.6rem 1rem;
+      }
+
       .urkunde-card {
-        padding: 1.8rem 1.2rem 1.5rem;
+        padding: 1.6rem 1rem 1.4rem;
+        border-radius: 14px;
       }
 
       .urkunde-title h1 {
-        font-size: 1.7rem;
-        letter-spacing: 0.16em;
+        font-size: 1.5rem;
+        letter-spacing: 0.14em;
       }
 
       .urkunde-title h2 {
-        font-size: 0.95rem;
-        letter-spacing: 0.18em;
+        font-size: 0.9rem;
+        letter-spacing: 0.16em;
       }
 
       .tierbild {
-        max-height: 80px;
+        max-height: 70px;
+      }
+
+      .urkunde-form span.label-text {
+        min-width: 0;
+        display: block;
+        margin-bottom: 0.1rem;
+      }
+
+      .urkunde-form label {
+        font-size: 0.92rem;
+      }
+
+      .urkunde-fotos {
+        gap: 0.9rem;
+      }
+
+      .tier-galerie {
+        padding: 1.8rem 0.6rem 2.2rem;
+      }
+
+      .tier-galerie h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .tier-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+
+      .tier-card img {
+        max-width: 140px;
+      }
+
+      .ente-hero {
+        max-width: 170px;
+        transform: translateY(-4px);
+      }
+
+      .team-section {
+        padding: 2rem 0.6rem 3rem;
+      }
+
+      .team-section h2 {
+        font-size: 1.4rem;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -441,7 +559,7 @@
 <body>
 <main>
 
-  <!-- OBERER TEIL: URKUNDE im Kartenstil (Variante A, Bild 2) -->
+  <!-- OBERER TEIL: URKUNDE -->
   <section class="patenschaft-wrapper">
     <div class="urkunde-card">
 
@@ -449,9 +567,9 @@
 
       <header class="urkunde-header">
         <div class="urkunde-animals-top">
-          <!-- OBEN LINKS: Huhn – bitte img/huhn.png aus der Karte ausschneiden -->
+          <!-- Huhn oben links -->
           <div class="tier-with-label">
-            <img src="img/huhn.png" alt="Huhn (gezeichnet)" title="Huhn – gezeichnetes Tier" class="tierbild">
+            <img src="img/huhn.png" alt="Huhn (gezeichnet)" class="tierbild">
             <div class="tier-label">Huhn</div>
           </div>
         </div>
@@ -462,9 +580,9 @@
         </div>
 
         <div class="urkunde-animals-top">
-          <!-- OBEN RECHTS: Kaninchen – bitte img/kaninchen_oben.png anlegen -->
+          <!-- Kaninchen oben rechts -->
           <div class="tier-with-label">
-            <img src="img/kaninchen_oben.png" alt="Kaninchen (gezeichnet)" title="Kaninchen – gezeichnetes Tier" class="tierbild">
+            <img src="img/kaninchen_oben.png" alt="Kaninchen (gezeichnet)" class="tierbild">
             <div class="tier-label">Kaninchen</div>
           </div>
         </div>
@@ -532,21 +650,21 @@
 
       <footer class="urkunde-footer">
         <div class="urkunde-animals-bottom">
-          <!-- Untere Tiere – bitte passende PNGs anlegen -->
+          <!-- Untere Tiere -->
           <div class="tier-with-label">
-            <img src="img/gans.png" alt="Gans (gezeichnet)" title="Gans – gezeichnetes Tier" class="tierbild">
+            <img src="img/gans.png" alt="Gans (gezeichnet)" class="tierbild">
             <div class="tier-label">Gans</div>
           </div>
           <div class="tier-with-label">
-            <img src="img/kaninchen_unten.png" alt="Kaninchen (gezeichnet)" title="Kaninchen – gezeichnetes Tier" class="tierbild">
+            <img src="img/kaninchen_unten.png" alt="Kaninchen (gezeichnet)" class="tierbild">
             <div class="tier-label">Kaninchen</div>
           </div>
           <div class="tier-with-label">
-            <img src="img/hund.png" alt="Hund (gezeichnet)" title="Hund – gezeichnetes Tier" class="tierbild">
+            <img src="img/hund.png" alt="Hund (gezeichnet)" class="tierbild">
             <div class="tier-label">Hund</div>
           </div>
           <div class="tier-with-label">
-            <img src="img/ente.png" alt="Ente (gezeichnet)" title="Ente – gezeichnetes Tier" class="tierbild">
+            <img src="img/ente.png" alt="Ente (gezeichnet)" class="tierbild">
             <div class="tier-label">Ente</div>
           </div>
         </div>
@@ -563,6 +681,35 @@
     </div>
   </section>
 
+  <!-- MITTLERER TEIL: TIERGALERIE -->
+  <section class="tier-galerie">
+    <h2>Unsere Tiny-Farmers-Tiere</h2>
+
+    <div class="tier-grid">
+
+      <figure class="tier-card">
+        <img src="img/ente.png" alt="Ente im Aquarellstil" class="ente-hero">
+        <figcaption>Ente</figcaption>
+      </figure>
+
+      <figure class="tier-card">
+        <img src="img/entenbaby.png" alt="Entenküken im Aquarellstil">
+        <figcaption>Entenküken</figcaption>
+      </figure>
+
+      <figure class="tier-card">
+        <img src="img/kaninchen.png" alt="Kaninchen im Aquarellstil">
+        <figcaption>Kaninchen</figcaption>
+      </figure>
+
+      <figure class="tier-card">
+        <img src="img/salamander.png" alt="Salamander im Aquarellstil">
+        <figcaption>Salamander</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
   <!-- UNTERER TEIL: TEAM / MITARBEITERBEREICH -->
   <section class="team-section">
     <div class="team-inner">
@@ -575,7 +722,7 @@
           <div class="team-name">Jenny Recour</div>
           <div class="team-role">Gründerin Tiny Farmers</div>
           <div class="team-note">
-            Organisation, Betreuung der Tiere & Patenschaften.
+            Organisation, Betreuung der Tiere &amp; Patenschaften.
           </div>
         </article>
 
@@ -584,7 +731,7 @@
           <div class="team-name">Mitarbeiter*in 2</div>
           <div class="team-role">Tierpflege</div>
           <div class="team-note">
-            Füttern, Pflege & Wohlbefinden der Tiere.
+            Füttern, Pflege &amp; Wohlbefinden der Tiere.
           </div>
         </article>
 
